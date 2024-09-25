@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_scholar_api/paper.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert' show json;
 
 void main() {
   runApp(const MyApp());
@@ -52,6 +55,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String> loadAsset() async {
     return rootBundle.loadString('text/json_scholoar.json');
+  }
+
+  Future<Null> getUsers() async {
+    try {
+      final response = await http.get(
+        Uri.parse("https://randomuser.me/api?results=50&seed=galaxies"),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        return data;
+      } else {
+        throw Exception(
+            'Failed to load users. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to the server. Error: $e');
+    }
   }
 
   @override
