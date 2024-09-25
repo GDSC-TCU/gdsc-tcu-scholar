@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert' show json;
 
+import 'paper.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -57,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return rootBundle.loadString('text/json_scholoar.json');
   }
 
-  Future<Null> getUsers() async {
+  Future<String> getUsers() async {
     try {
       final response = await http.get(
         Uri.parse("https://randomuser.me/api?results=50&seed=galaxies"),
@@ -74,6 +76,19 @@ class _MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       throw Exception('Failed to connect to the server. Error: $e');
     }
+  }
+
+  List<Paper> extractPaperInfo(String jsonText) {
+    final decodedJson = json.decode(jsonText);
+    final organicResults = decodedJson["organic_results"];
+    List<Paper> result = [];
+    for (final organicResult in organicResults) {
+      result.add(Paper(
+          title: organicResult["title"],
+          link: organicResult["link"],
+          citedBy: organicResult["inline_links"]["cited_by"]["total"]));
+    }
+    return result;
   }
 
   @override
