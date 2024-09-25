@@ -41,6 +41,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
   final _textEditingController = TextEditingController();
 
   void _incrementCounter() {
@@ -59,15 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return rootBundle.loadString('text/json_scholoar.json');
   }
 
-  Future<String> getUPapers() async {
+  Future<String> getUPapers(String query) async {
     try {
       final response = await http.get(
-        Uri.parse("https://randomuser.me/api?results=50&seed=galaxies"),
+        Uri.parse(
+            "https://serpapi.com/search.json?engine=google_scholar&q=$query"),
       );
 
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-
+        final data = response.body;
         return data;
       } else {
         throw Exception(
@@ -128,7 +129,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     controller: _textEditingController,
                   )),
                   ElevatedButton.icon(
-                      onPressed: () {
+                      onPressed: () async {
+                        String jsonapi =
+                            await getUPapers(_textEditingController.text);
                         print(_textEditingController.text);
                       },
                       label: Text('Send'),
