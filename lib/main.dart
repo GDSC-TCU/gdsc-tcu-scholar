@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return rootBundle.loadString('text/json_scholoar.json');
   }
 
-  Future<String> getUsers() async {
+  Future<String> getUPapers() async {
     try {
       final response = await http.get(
         Uri.parse("https://randomuser.me/api?results=50&seed=galaxies"),
