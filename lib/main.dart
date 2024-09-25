@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_scholar_api/paper.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:json_annotation/json_annotation.dart';
+
 import 'dart:convert' show json;
 
 import 'paper.dart';
