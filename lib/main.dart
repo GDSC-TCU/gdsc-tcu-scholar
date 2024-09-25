@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
+import 'paper.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -52,6 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String> loadAsset() async {
     return rootBundle.loadString('text/json_scholoar.json');
+  }
+
+  List<Paper> extractPaperInfo(String jsonText) {
+    final decodedJson = json.decode(jsonText);
+    final organicResults = decodedJson["organic_results"];
+    List<Paper> result = [];
+    for (final organicResult in organicResults) {
+      result.add(Paper(
+          title: organicResult["title"],
+          link: organicResult["link"],
+          citedBy: organicResult["inline_links"]["cited_by"]["total"]));
+    }
+    return result;
   }
 
   @override
