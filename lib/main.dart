@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       result.add(Paper(
           title: organicResult["title"],
           link: organicResult["link"],
-          citedBy: organicResult["inline_links"]["cited_by"]["total"]));
+          citedByCount: organicResult["inline_links"]["cited_by"]["total"]));
     }
     return result;
   }
