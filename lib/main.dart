@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       final response = await http.get(
         Uri.parse(
-            "https://serpapi.com/search.json?engine=google_scholar&q=$query"),
+            "https://serpapi.com/search.json?engine=google_scholar&q=$query&api_key="),
       );
 
       if (response.statusCode == 200) {
@@ -132,7 +132,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () async {
                         String jsonapi =
                             await getUPapers(_textEditingController.text);
-                        print(_textEditingController.text);
                       },
                       label: Text('Send'),
                       icon: Icon(Icons.send)),
