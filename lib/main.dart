@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'GDG TCU Scholoar'),
     );
   }
 }
@@ -95,21 +95,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   title: Text(widget.title),
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Image.asset('assets/logo.png'),
             ElevatedButton(
                 onPressed: () async {
                   final content = await loadAsset();
@@ -118,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     "https://raw.githubusercontent.com/Yu-HaruWolf/qiita-contents/refs/heads/main/package.json");
                   print(content);
                 },
-                child: Text('Test')),
+                child: Text('json file')),
             Form(
                 child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -133,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         String jsonapi =
                             await getUPapers(_textEditingController.text);
                       },
-                      label: Text('Send'),
+                      label: Text('api'),
                       icon: Icon(Icons.send)),
                 ],
               ),
