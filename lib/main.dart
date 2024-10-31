@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' show json;
 
 import 'paper.dart';
+import 'dart:convert';
+import 'ResultPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -79,15 +81,33 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Future<String> getUPapers_python(String query) async {
+    try {
+      final response = await http.get(
+        Uri.parse("http://127.0.0.1:8888/query?q=$query"),
+      );
+
+      if (response.statusCode == 200) {
+        String data = response.body;
+        return data;
+      } else {
+        throw Exception(
+            'Failed to load users. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to the server. Error: $e');
+    }
+  }
+
   List<Paper> extractPaperInfo(String jsonText) {
     final decodedJson = json.decode(jsonText);
-    final organicResults = decodedJson["organic_results"];
+    // final organicResults = decodedJson["organic_results"];
     List<Paper> result = [];
-    for (final organicResult in organicResults) {
+    for (final organicResult in decodedJson) {
       result.add(Paper(
-          title: organicResult["title"],
-          link: organicResult["link"],
-          citedByCount: organicResult["inline_links"]["cited_by"]["total"]));
+          title: organicResult["bib"]["title"],
+          link: organicResult["pub_url"],
+          citedByCount: organicResult["num_citations"]));
     }
     return result;
   }
@@ -124,8 +144,34 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
                   ElevatedButton.icon(
                       onPressed: () async {
-                        String jsonapi =
-                            await getUPapers(_textEditingController.text);
+                        String jsonapi = await getUPapers_python(
+                            _textEditingController
+                                .text); //chagne python from api
+                        // JSON形式のStringをMapに変換
+
+                        // List<dynamic> jsonData = jsonDecode(jsonapi);
+                        // var publication = jsonData[0];
+                        // Paper paper = Paper(
+                        //     title: publication['bib']['title'],
+                        //     link: publication['pub_url'],
+                        //     citedByCount: publication['num_citations']);
+                        // // print(jsonData);
+
+                        // print(paper.title);
+                        // print(paper.link);
+                        // print(paper.citedByCount);
+
+                        List<Paper> papers = extractPaperInfo(jsonapi);
+                        //結果を表示
+                        for (var paper in papers) {
+                          print(paper.title);
+                          print(paper.link);
+                          print(paper.citedByCount);
+                        }
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return Resultpage();
+                        }));
                       },
                       label: Text('api'),
                       icon: Icon(Icons.send)),
