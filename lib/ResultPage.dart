@@ -31,6 +31,18 @@ class Resultpage extends StatelessWidget {
                   title: paper_result[3].title,
                   link: paper_result[3].link,
                   citedByCount: paper_result[3].citedByCount),
+              PaperCard(
+                  title: paper_result[4].title,
+                  link: paper_result[4].link,
+                  citedByCount: paper_result[4].citedByCount),
+              PaperCard(
+                  title: paper_result[5].title,
+                  link: paper_result[5].link,
+                  citedByCount: paper_result[5].citedByCount),
+              PaperCard(
+                  title: paper_result[6].title,
+                  link: paper_result[6].link,
+                  citedByCount: paper_result[6].citedByCount),
             ]),
       ),
     );

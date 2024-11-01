@@ -162,6 +162,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         // print(paper.citedByCount);
 
                         List<Paper> papers = extractPaperInfo(jsonapi);
+                        papers.sort(
+                            (a, b) => b.citedByCount.compareTo(a.citedByCount));
                         //結果を表示
                         for (var paper in papers) {
                           print(paper.title);
