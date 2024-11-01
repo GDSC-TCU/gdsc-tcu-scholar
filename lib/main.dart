@@ -170,7 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          return Resultpage();
+                          return Resultpage(
+                            paper_result: papers,
+                          );
                         }));
                       },
                       label: Text('api'),
