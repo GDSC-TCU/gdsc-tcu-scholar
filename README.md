@@ -5,10 +5,7 @@
 
 
 ## デモ動画
-[https://www.youtube.com/watch?v=vaLok85tdQM](https://youtu.be/YqEQwTib2vM)
 
-
-https://github.com/user-attachments/assets/580cd982-aa4d-4786-bbda-dcce67468e4f
 
 ## アプリ概要
 Google ScholarがCitation順で論文を表示できないためCitation順に表示できるアプリを制作した。
