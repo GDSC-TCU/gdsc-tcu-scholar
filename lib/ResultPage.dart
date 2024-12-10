@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_scholar_api/paper.dart';
 import 'package:google_scholar_api/widgets/paper_card.dart';
+import 'package:google_scholar_api/main.dart';
 
 class Resultpage extends StatelessWidget {
   const Resultpage({super.key, required this.paper_result});
@@ -9,6 +10,22 @@ class Resultpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        // 左側のアイコン
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MyHomePage(
+                          title: 'GDG TCU Scholoar',
+                        )));
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+        // タイトルテキスト
+        title: Text('Result'),
+      ),
       body: Center(
         child: ListView(
             //scrollDirection: Axis.horizontal, // 横

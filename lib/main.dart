@@ -107,8 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   paper_result: papers,
                                 )));
                       },
-                      label: Text('api'),
-                      icon: Icon(Icons.send)),
+                      label: Text('search'),
+                      icon: Icon(Icons.search)),
                 ],
               ),
             ))
