@@ -42,44 +42,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
   final _textEditingController = TextEditingController();
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  Future<String> getContent(String url) async {
-    final response = await http.get(Uri.parse(url));
-
-    return response.body;
-  }
-
-  Future<String> loadAsset() async {
-    return rootBundle.loadString('text/json_scholoar.json');
-  }
-
-  Future<String> getUPapers(String query) async {
-    try {
-      final response = await http.get(
-        Uri.parse(
-            "https://serpapi.com/search.json?engine=google_scholar&q=$query&api_key="),
-      );
-
-      if (response.statusCode == 200) {
-        final data = response.body;
-        return data;
-      } else {
-        throw Exception(
-            'Failed to load users. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Failed to connect to the server. Error: $e');
-    }
-  }
 
   Future<String> getUPapers_python(String query) async {
     try {
@@ -101,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Paper> extractPaperInfo(String jsonText) {
     final decodedJson = json.decode(jsonText);
-    // final organicResults = decodedJson["organic_results"];
     List<Paper> result = [];
     for (final organicResult in decodedJson) {
       result.add(Paper(
@@ -124,15 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/logo.png'),
-            ElevatedButton(
-                onPressed: () async {
-                  final content = await loadAsset();
-                  final decodedJson = json.decode(content);
-                  // final content = await getContent(
-                  //     "https://raw.githubusercontent.com/Yu-HaruWolf/qiita-contents/refs/heads/main/package.json");
-                  print(content);
-                },
-                child: Text('json file')),
             Form(
                 child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -145,31 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton.icon(
                       onPressed: () async {
                         String jsonapi = await getUPapers_python(
-                            _textEditingController
-                                .text); //chagne python from api
-                        // JSON形式のStringをMapに変換
-
-                        // List<dynamic> jsonData = jsonDecode(jsonapi);
-                        // var publication = jsonData[0];
-                        // Paper paper = Paper(
-                        //     title: publication['bib']['title'],
-                        //     link: publication['pub_url'],
-                        //     citedByCount: publication['num_citations']);
-                        // // print(jsonData);
-
-                        // print(paper.title);
-                        // print(paper.link);
-                        // print(paper.citedByCount);
-
+                            _textEditingController.text);
                         List<Paper> papers = extractPaperInfo(jsonapi);
                         papers.sort(
                             (a, b) => b.citedByCount.compareTo(a.citedByCount));
-                        //結果を表示
-                        for (var paper in papers) {
-                          print(paper.title);
-                          print(paper.link);
-                          print(paper.citedByCount);
-                        }
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Resultpage(
                                   paper_result: papers,
@@ -183,11 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
