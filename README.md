@@ -1,8 +1,17 @@
-# 論文検索(Citation順)アプリ
+# TS Cite(TCU Scholar Cite)
+論文を検索アプリ（Citation順表示webアプリ）
+![TCU-Scholar-read me](https://github.com/user-attachments/assets/36e7ed39-764c-4f9e-bcc6-60dd5ee8b534)
 
 
 ## デモ動画
-https://www.youtube.com/watch?v=vaLok85tdQM
+[https://www.youtube.com/watch?v=vaLok85tdQM](https://youtu.be/YqEQwTib2vM)
+
+
+https://github.com/user-attachments/assets/580cd982-aa4d-4786-bbda-dcce67468e4f
+
+## アプリ概要
+Google ScholarがCitation順で論文を表示できないためCitation順に表示できるアプリを制作した。
+
 
 ## 実行
 pythonを実行させてから。windowsを選択
