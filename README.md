@@ -7,6 +7,10 @@
 ## デモ動画
 
 
+https://github.com/user-attachments/assets/92af8ad5-e74f-4943-bb77-78503c57bdc9
+
+
+
 ## アプリ概要
 Google ScholarがCitation順で論文を表示できないためCitation順に表示できるアプリを制作した。
 
