@@ -15,34 +15,11 @@ class Resultpage extends StatelessWidget {
             padding: EdgeInsets.all(36.0),
             shrinkWrap: true,
             children: [
-              PaperCard(
-                  title: paper_result[0].title,
-                  link: paper_result[0].link,
-                  citedByCount: paper_result[0].citedByCount),
-              PaperCard(
-                  title: paper_result[1].title,
-                  link: paper_result[1].link,
-                  citedByCount: paper_result[1].citedByCount),
-              PaperCard(
-                  title: paper_result[2].title,
-                  link: paper_result[2].link,
-                  citedByCount: paper_result[2].citedByCount),
-              PaperCard(
-                  title: paper_result[3].title,
-                  link: paper_result[3].link,
-                  citedByCount: paper_result[3].citedByCount),
-              PaperCard(
-                  title: paper_result[4].title,
-                  link: paper_result[4].link,
-                  citedByCount: paper_result[4].citedByCount),
-              PaperCard(
-                  title: paper_result[5].title,
-                  link: paper_result[5].link,
-                  citedByCount: paper_result[5].citedByCount),
-              PaperCard(
-                  title: paper_result[6].title,
-                  link: paper_result[6].link,
-                  citedByCount: paper_result[6].citedByCount),
+              for (int i = 0; i < 6; i++)
+                PaperCard(
+                    title: paper_result[i].title,
+                    link: paper_result[i].link,
+                    citedByCount: paper_result[i].citedByCount),
             ]),
       ),
     );
