@@ -1,6 +1,7 @@
 # TS Cite(TCU Scholar Cite)
 論文を検索アプリ（Citation順表示webアプリ）
-![TCU-Scholar-read me](https://github.com/user-attachments/assets/36e7ed39-764c-4f9e-bcc6-60dd5ee8b534)
+![TCU read me](https://github.com/user-attachments/assets/ec762fc3-0427-495a-994b-728067adc71d)
+
 
 
 ## デモ動画
