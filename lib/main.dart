@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' show json;
 
 import 'paper.dart';
+import 'dart:convert';
+import 'ResultPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,35 +42,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
   final _textEditingController = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  Future<String> getContent(String url) async {
-    final response = await http.get(Uri.parse(url));
-
-    return response.body;
-  }
-
-  Future<String> loadAsset() async {
-    return rootBundle.loadString('text/json_scholoar.json');
-  }
-
-  Future<String> getUPapers(String query) async {
+  Future<String> getUPapers_python(String query) async {
     try {
       final response = await http.get(
-        Uri.parse(
-            "https://serpapi.com/search.json?engine=google_scholar&q=$query&api_key="),
+        Uri.parse("http://127.0.0.1:8888/query?q=$query"),
       );
 
       if (response.statusCode == 200) {
-        final data = response.body;
+        String data = response.body;
         return data;
       } else {
         throw Exception(
@@ -81,13 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Paper> extractPaperInfo(String jsonText) {
     final decodedJson = json.decode(jsonText);
-    final organicResults = decodedJson["organic_results"];
     List<Paper> result = [];
-    for (final organicResult in organicResults) {
+    for (final organicResult in decodedJson) {
       result.add(Paper(
-          title: organicResult["title"],
-          link: organicResult["link"],
-          citedByCount: organicResult["inline_links"]["cited_by"]["total"]));
+          title: organicResult["bib"]["title"],
+          link: organicResult["pub_url"],
+          citedByCount: organicResult["num_citations"]));
     }
     return result;
   }
@@ -95,24 +77,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   title: Text(widget.title),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/logo.png'),
-            ElevatedButton(
-                onPressed: () async {
-                  final content = await loadAsset();
-                  final decodedJson = json.decode(content);
-                  // final content = await getContent(
-                  //     "https://raw.githubusercontent.com/Yu-HaruWolf/qiita-contents/refs/heads/main/package.json");
-                  print(content);
-                },
-                child: Text('json file')),
             Form(
                 child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -124,22 +97,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
                   ElevatedButton.icon(
                       onPressed: () async {
-                        String jsonapi =
-                            await getUPapers(_textEditingController.text);
+                        String jsonapi = await getUPapers_python(
+                            _textEditingController.text);
+                        List<Paper> papers = extractPaperInfo(jsonapi);
+                        papers.sort(
+                            (a, b) => b.citedByCount.compareTo(a.citedByCount));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Resultpage(
+                                  paper_result: papers,
+                                )));
                       },
-                      label: Text('api'),
-                      icon: Icon(Icons.send)),
+                      label: Text('search'),
+                      icon: Icon(Icons.search)),
                 ],
               ),
             ))
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

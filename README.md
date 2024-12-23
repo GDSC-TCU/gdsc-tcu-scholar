@@ -1,16 +1,28 @@
-# google_scholar_api
+# TS Cite(TCU Scholar Cite)
+論文を検索アプリ（Citation順表示webアプリ）
+![TCU read me](https://github.com/user-attachments/assets/ec762fc3-0427-495a-994b-728067adc71d)
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## デモ動画
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://github.com/user-attachments/assets/92af8ad5-e74f-4943-bb77-78503c57bdc9
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+## アプリ概要
+Google ScholarがCitation順で論文を表示できないためCitation順に表示できるアプリを制作した。
+
+## 環境
+Python 3.12.8
+scholarly 1.7.11 
+flask     2.3.3
+## 実行
+pythonを実行させてから。windowsを選択
+
+```
+pip -r requirment.txt
+python query.py
+flutter run -d windows
+```
