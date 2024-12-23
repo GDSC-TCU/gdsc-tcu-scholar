@@ -17,7 +17,7 @@ Google ScholarがCitation順で論文を表示できないためCitation順に�
 ## 環境
 Python 3.12.8
 scholarly 1.7.11 
-flask     2.2.3
+flask     2.3.3
 ## 実行
 pythonを実行させてから。windowsを選択
 
